@@ -10,7 +10,7 @@ Parser::Parser()
  : petitorios()
 {}
 
-void Parser::stream(std::string& petitoriosInput,
+void Parser::   stream(std::string& petitoriosInput,
                                          std::vector<std::string>& parsed){
     identifyCmd(petitoriosInput, parsed, "\n");
     identifyCmd(petitoriosInput, parsed, "\n\n");
@@ -23,7 +23,7 @@ void Parser::identifyCmd(std::string& petitoriosInput,
     size_t cmd_pos = petitoriosInput.find(delim);
     if (cmd_pos != std::string::npos){
         if (delim.compare("\n\n") == 0){
-            std::string  body = petitoriosInput.substr(cmd_pos,
+            std::string  body = petitoriosInput.substr(cmd_pos + 2,
                                             petitoriosInput.length());
             if (!body.empty())
                 parsed.push_back(body);

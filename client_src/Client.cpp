@@ -20,7 +20,7 @@ void Client::input(){
     std::string message(it, end);
     StringSender::sendMsg(skt, message);
     skt.shutDownChannel(1);
-    std::string recieved = StringSender::recvMsg(skt);
+    std::string recieved = StringSender::reScvMsg(skt);
     std::cout << recieved;
     return;
 }

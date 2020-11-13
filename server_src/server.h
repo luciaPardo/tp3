@@ -1,10 +1,10 @@
 #ifndef TP3_SERVIDOR_H
 #define TP3_SERVIDOR_H
 #include <vector>
-#include "../common_src/Peer.h"
-#include "../common_src/Monitor.h"
-#include "../common_src/common_thread.h"
-#include "../common_src/ServerOutput.h"
+#include "Peer.h"
+#include "Monitor.h"
+#include "thread.h"
+#include "ServerOutput.h"
 class Server : public Thread {
 private:
     void endServer();

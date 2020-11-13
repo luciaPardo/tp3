@@ -1,9 +1,7 @@
-
 #ifndef _MONITOR_H
 #define _MONITOR_H
 
 #include <vector>
-#include "common_thread.h"
 #include <string>
 #include <cstring>
 #include <mutex>

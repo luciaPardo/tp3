@@ -1,9 +1,9 @@
 
 #ifndef TP3_PEER_H
 #define TP3_PEER_H
-#include "common_thread.h"
+#include "thread.h"
 #include "Monitor.h"
-#include "Socket.h"
+#include "../common_src/Socket.h"
 #include <vector>
 #include <string>
 #include <atomic>

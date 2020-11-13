@@ -1,4 +1,4 @@
-#include "common_thread.h"
+#include "thread.h"
 #include <thread>
 #include <bits/stdc++.h>
 #include <utility>

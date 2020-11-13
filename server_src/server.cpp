@@ -1,5 +1,5 @@
 #include "server.h"
-#include "../common_src/Peer.h"
+#include "Peer.h"
 #include "../common_src/Exception.h"
 #include <iostream>
 #include <sstream>

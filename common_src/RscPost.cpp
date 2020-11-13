@@ -19,7 +19,7 @@ std::string RscPost::get(const std::vector<std::string>& parsed,
         return response;
     }
     response += "HTTP/1.1 200 OK\n\n";
-    monitor.push(resource, parsed[3]);
+    monitor.insert(resource, parsed[3]);
     response += parsed[3];
     return response;
 }

@@ -10,7 +10,7 @@
 Client::Client(const char* host, const char* port)
     : skt()
 {
-    skt.clientConnect(host, port);
+    skt.connection(host, port);
 }
 
 void Client::input(){
@@ -20,7 +20,7 @@ void Client::input(){
     std::string message(it, end);
     StringSender::sendMsg(skt, message);
     skt.shutDownChannel(1);
-    std::string recieved = StringSender::reScvMsg(skt);
+    std::string recieved = StringSender::recvMsg(skt);
     std::cout << recieved;
     return;
 }

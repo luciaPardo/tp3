@@ -11,12 +11,12 @@ Monitor::Monitor()
     :  mtx(), resources()
 {}
 
-void Monitor::push(std::string key, std::string value){
+void Monitor::insert(std::string key, std::string value){
     std::lock_guard<std::mutex> lck(mtx);
     resources.insert(std::make_pair(key, value));
 }
 
-std::string& Monitor::pop(std::string key){
+std::string& Monitor::access(std::string key){
     std::lock_guard<std::mutex> lck(mtx);
    return resources[key];
 }

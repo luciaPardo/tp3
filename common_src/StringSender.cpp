@@ -20,7 +20,6 @@ std::string StringSender::recvMsg(Socket &socket) {
     while (true){
         ssize_t bytes = socket.recieve(msg,(ssize_t)MAX_BUFF);
         mem.append(msg, bytes);
-        //std::cout << msg << "\n";
         if (bytes <= 0)
             break;
     }

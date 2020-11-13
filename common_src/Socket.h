@@ -16,8 +16,8 @@ public:
     explicit Socket(int fd);
     Socket(Socket &&other);
     Socket& operator=(Socket &&other)noexcept;
-    void clientConnect(const char* host, const char* port);
-    void serverConnect(const char* port);
+    void connection(const char* host, const char* port);
+    void bind(const char* port);
     Socket acceptClient();
     ssize_t send(char* msg, size_t msg_size);
     ssize_t recieve(char* msg, ssize_t msg_size);

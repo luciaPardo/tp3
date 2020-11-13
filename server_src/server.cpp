@@ -18,14 +18,14 @@ Server::Server(char* port, char* root)
       monitor()
 
 {
-    skt_listener.serverConnect(port);
+    skt_listener.bind(port);
     std::string cast = std::string(root);
     std::ifstream file(cast);
     if (file) {
         std::stringstream buffer;
         buffer << file.rdbuf();
         file.close();
-        monitor.push("/", buffer.str());
+        monitor.insert("/", buffer.str());
     }
 }
 

@@ -82,21 +82,18 @@ ssize_t Socket::recieve(char* msg, ssize_t msg_size) {
                                    msg_size - tot_bytes,
                                    0);
         if (new_bytes == -1){
-            fprintf(stderr, "Error del receive new bytes: %s \n",
-                    strerror(errno));
+            throw Exception("Error en el recieve (socket): ",errno);
             return -1;
         }else if (new_bytes == 0){
             return tot_bytes;
-        } //else if (new_bytes < MAX_BYTES){
-//            return new_bytes;
-//        }
+        }
         tot_bytes += new_bytes;
     }
     return tot_bytes;
 }
 
 
-void Socket::serverConnect(const char* port) { //connect to port
+void Socket::bind(const char* port) { //connect to port
     struct addrinfo* results;
     struct addrinfo* ptr;
     bool is_connected = false;
@@ -104,6 +101,7 @@ void Socket::serverConnect(const char* port) { //connect to port
     for (ptr = results; ptr != NULL && !is_connected; ptr = ptr->ai_next){
         fd = ::socket(ptr->ai_family, ptr->ai_socktype, ptr->ai_protocol);
         if (fd == -1){
+            freeaddrinfo(results);
             throw Exception("Fallo de creación de Socket en server connect");
         }
         bindAndListen(fd, results->ai_addr, results->ai_addrlen);
@@ -113,7 +111,7 @@ void Socket::serverConnect(const char* port) { //connect to port
 }
 
 
-void Socket::clientConnect(const char* host, const char* port) {
+void Socket::connection(const char* host, const char* port) {
     struct addrinfo* results;
     struct addrinfo* ptr;
     bool is_connected = false;
@@ -149,7 +147,7 @@ Socket::~Socket() {
 }
 
 void Socket::forceShutDown() {
-    if (shutdown(fd, SHUT_RDWR) == -1) //cierro ambos lados
+    if (shutdown(fd, SHUT_RDWR) == -1)
         throw Exception("Error en el forceShutDown: %s", errno);
     if (close(fd) == -1)
         throw Exception("Error en el forceShutDown: %s", errno);

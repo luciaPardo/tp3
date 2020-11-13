@@ -16,8 +16,8 @@ class Monitor {
 
 public:
     Monitor();
-    void push(std::string key, std::string value);
-    std::string& pop(std::string key);
+    void insert(std::string key, std::string value);
+    std::string& access(std::string key);
     bool is(std::string key);
 };
 

@@ -3,20 +3,21 @@
 #define TP3_PEER_H
 #include "thread.h"
 #include "Monitor.h"
-#include "../common_src/Socket.h"
+#include "../common_src/SocketClient.h"
+#include "../common_src/SocketAcceptor.h"
 #include <vector>
 #include <string>
 #include <atomic>
 #include "ServerOutput.h"
 
 class Peer : public Thread {
-    Socket skt_peer;
+    SocketClient& skt_peer;
     Monitor& monitor;
     std::atomic<bool> is_active;
     std::atomic<bool> peer_online;
 public:
-    Peer(Socket skt_peer, Monitor& monitor);
-    std::string getResponse(std::string& message, Monitor& monitor);
+    Peer(SocketClient skt_peer, Monitor& monitor);
+    const std::string getResponse(std::string& message);
     void run() override;
     bool isDead();
 };

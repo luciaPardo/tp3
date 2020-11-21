@@ -2,11 +2,11 @@
 #define TP3_STRINGSENDER_H
 
 #include <string>
-#include "Socket.h"
+#include "SocketClient.h"
 
 namespace StringSender {
-    void sendMsg(Socket& socket, std::string &message);
-    std::string recvMsg(Socket& socket);
+    void sendMsg(SocketClient& socket, const std::string &message);
+    std::string recvMsg(SocketClient& socket);
 }
 
 

@@ -11,18 +11,18 @@ Monitor::Monitor()
     :  mtx(), resources()
 {}
 
-void Monitor::insert(std::string key, std::string value){
+void Monitor::insert(const std::string& key, const std::string& value){
     std::lock_guard<std::mutex> lck(mtx);
     resources.insert(std::make_pair(key, value));
 }
 
-std::string& Monitor::access(std::string key){
+std::string& Monitor::access(const std::string& key){
     std::lock_guard<std::mutex> lck(mtx);
    return resources[key];
 }
 
 
-bool Monitor::is(std::string key){
+bool Monitor::is(const std::string& key){
     std::lock_guard<std::mutex> lck(mtx);
     std::unordered_map<std::string,std::string>::const_iterator valor
                                                 = resources.find(key);

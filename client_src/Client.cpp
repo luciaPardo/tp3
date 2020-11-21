@@ -1,4 +1,4 @@
-#include "../common_src/Socket.h"
+#include "../common_src/SocketClient.h"
 #include "Client.h"
 #include<bits/stdc++.h>
 #include <string>
@@ -8,10 +8,8 @@
 
 
 Client::Client(const char* host, const char* port)
-    : skt()
-{
-    skt.connection(host, port);
-}
+    :  skt(host, port)
+{}
 
 void Client::input(){
     std::cin >> std::noskipws;

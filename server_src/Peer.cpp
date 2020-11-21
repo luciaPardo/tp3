@@ -7,8 +7,8 @@
 #include "ServerOutput.h"
 #include <utility>
 
-Peer::Peer(Socket skt, Monitor& monitor)
-:   skt_peer(std::move(skt)),
+Peer::Peer(SocketClient skt, Monitor& monitor)
+:   skt_peer(skt),
     monitor(monitor),
     is_active(true),
     peer_online(true)
@@ -18,13 +18,13 @@ Peer::Peer(Socket skt, Monitor& monitor)
 void Peer::run(){
     Parser parse;
     std::string message = StringSender::recvMsg(skt_peer);
-    std::string response = getResponse(message, monitor);
+    const std::string response = getResponse(message);
     StringSender::sendMsg(skt_peer, response);
     skt_peer.shutDownChannel(1);
     peer_online = false;
 }
 
-std::string Peer::getResponse(std::string& message, Monitor& monitor){
+const std::string Peer::getResponse(std::string& message){
     Parser parser;
     ServerOutput stdout;
     std::vector<std::string> parsed;

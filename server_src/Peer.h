@@ -11,7 +11,7 @@
 #include "ServerOutput.h"
 
 class Peer : public Thread {
-    SocketClient& skt_peer;
+    SocketClient skt_peer;
     Monitor& monitor;
     std::atomic<bool> is_active;
     std::atomic<bool> peer_online;

@@ -6,9 +6,10 @@
 #include "Message.h"
 #include "ServerOutput.h"
 #include <utility>
+#define CHNL_WRT 1
 
 Peer::Peer(SocketClient skt, Monitor& monitor)
-:   skt_peer(skt),
+:   skt_peer(std::move(skt)),
     monitor(monitor),
     is_active(true),
     peer_online(true)
@@ -20,7 +21,7 @@ void Peer::run(){
     std::string message = StringSender::recvMsg(skt_peer);
     const std::string response = getResponse(message);
     StringSender::sendMsg(skt_peer, response);
-    skt_peer.shutDownChannel(1);
+    skt_peer.shutDownChannel(CHNL_WRT);
     peer_online = false;
 }
 

@@ -36,7 +36,6 @@ void Server::operator()(){
 }
 
 void Server::run(){
-    //SocketClient skt_peer;
     std::vector<Peer*> threads;
     clients = threads;
     while (serv_online){
@@ -47,16 +46,15 @@ void Server::run(){
             new_peer->start();
         }
         catch (Exception& e) {
-            return;
+            break;
         }
         destroyZombies(clients);
     }
-    endServer();   
+    endServer();
 }
 
 void Server::destroyZombies(std::vector<Peer*>& threads){
     std::vector<Peer*>::iterator it = threads.begin();
-
     while (it != threads.end()){
         if ((*it)->isDead()) {
             (*it)->join();

@@ -16,8 +16,6 @@ SocketClient::SocketClient(int filedescriptor)
     : fd(filedescriptor)
 {}
 
-// SocketClient::SocketClient(){
-// }
 
 SocketClient& SocketClient::operator=(SocketClient &&other)noexcept{
     this->fd = other.fd;
@@ -112,4 +110,10 @@ void SocketClient::shutDownChannel(int channel_write) {
     } else{
         ::shutdown(fd, SHUT_RD);
     }
+}
+
+SocketClient::~SocketClient() {
+    if (fd == -1) return;
+    ::shutdown(fd, SHUT_RDWR); //cierro ambos lados
+    ::close(fd);
 }

@@ -8,8 +8,8 @@ public:
     int fd;
     SocketClient& operator=(SocketClient &&other)noexcept;
     explicit SocketClient(int filedescriptor);
-     SocketClient(SocketClient &&other);
-    //SocketClient(SocketClient&) = delete;
+    SocketClient(SocketClient &&other);
+    SocketClient(SocketClient&) = delete;
     void connect(int fd, struct addrinfo* ptr);
     SocketClient(const char* host, const char* port);
     ssize_t send(char msg[], size_t msg_size);
@@ -18,5 +18,6 @@ public:
                                          struct addrinfo** results);
     void forceShutDown();
     void shutDownChannel(int channel_write);
+    ~SocketClient();
 };
 #endif

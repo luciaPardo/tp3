@@ -19,7 +19,7 @@ class SocketAcceptor{
     int fd;
     void configInfo(bool serv_flag,const char* port, const char* host,
                                          struct addrinfo** results);
-   //SocketClient& operator=(SocketClient &&other)noexcept;
+   
 public:
     bool bindAndListen(int fd, struct sockaddr* ai_addr, socklen_t ai_addrlen);
     SocketClient acceptClient();

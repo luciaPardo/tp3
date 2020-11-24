@@ -1,4 +1,3 @@
-
 #include "SocketClient.h"
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -9,8 +8,6 @@
 #include "Exception.h"
 #include <sstream>
 #include <vector>
-#define MAX_CLIENTS 20
-#define MAX_BYTES 64
 
 SocketClient::SocketClient(int filedescriptor)
     : fd(filedescriptor)
@@ -96,12 +93,6 @@ void SocketClient::configInfo(bool serv_flag,const char* port, const char* host,
     }
 }
 
-void SocketClient::forceShutDown() {
-    if (shutdown(fd, SHUT_RDWR) == -1)
-        throw Exception("Error en el forceShutDown: %s", errno);
-    if (close(fd) == -1)
-        throw Exception("Error en el forceShutDown: %s", errno);
-}
 
 void SocketClient::shutDownChannel(int channel_write) {
     if (fd == -1) return;

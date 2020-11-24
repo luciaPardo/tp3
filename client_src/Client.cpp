@@ -5,6 +5,7 @@
 #include <vector>
 #include <iostream>
 #include "../common_src/StringSender.h"
+#define CHNL_WR 1
 
 
 Client::Client(const char* host, const char* port)
@@ -17,7 +18,7 @@ void Client::input(){
     std::istream_iterator<char> end;
     std::string message(it, end);
     StringSender::sendMsg(skt, message);
-    skt.shutDownChannel(1);
+    skt.shutDownChannel(CHNL_WR);
     std::string recieved = StringSender::recvMsg(skt);
     std::cout << recieved;
     return;

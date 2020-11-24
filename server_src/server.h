@@ -14,7 +14,6 @@ private:
     void destroyZombies(std::vector<Peer*>& threads);
     std::vector<Peer*> clients;
     char* port;
-    char* root;
     SocketAcceptor skt_listener;
 
 public:

@@ -13,7 +13,6 @@
 Server::Server(char* port, char* root)
     : clients(),
       port(port),
-      root(root),
       skt_listener(port),
       serv_online(true),
       monitor()

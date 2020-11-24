@@ -1,6 +1,5 @@
 #ifndef TP3_SOCKETACCEPTOR_H
 #define TP3_SOCKETACCEPTOR_H
-#include "Socket.h"
 #include <string>
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -19,9 +18,8 @@ class SocketAcceptor{
     int fd;
     void configInfo(bool serv_flag,const char* port, const char* host,
                                          struct addrinfo** results);
-   
-public:
     bool bindAndListen(int fd, struct sockaddr* ai_addr, socklen_t ai_addrlen);
+public:
     SocketClient acceptClient();
     explicit SocketAcceptor(const char* port);
     void forceShutDown();

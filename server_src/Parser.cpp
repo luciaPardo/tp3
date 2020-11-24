@@ -10,7 +10,7 @@ Parser::Parser()
  : petitorios()
 {}
 
-void Parser::   stream(std::string& petitoriosInput,
+void Parser::stream(std::string& petitoriosInput,
                                          std::vector<std::string>& parsed){
     identifyCmd(petitoriosInput, parsed, "\n");
     identifyCmd(petitoriosInput, parsed, "\n\n");

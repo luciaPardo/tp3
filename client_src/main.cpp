@@ -4,6 +4,8 @@
 #define MSG_ERROR_UNKNW "ERROR DESCONOCIDO"
 #define MIN_ARGS 3
 #define QUIT 'q'
+#define HOST 1
+#define PORT 2
 
 
 int main(int argc, char* argv[]){
@@ -12,7 +14,7 @@ int main(int argc, char* argv[]){
         return 1;
     }
     try{
-        Client client(argv[1], argv[2]);
+        Client client(argv[HOST], argv[PORT]);
         client.input();
     } catch (Exception &e) {
         std::cerr << e.what() << std::endl;

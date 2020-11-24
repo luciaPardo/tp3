@@ -49,6 +49,9 @@ Además se representa la relación de Peer con el Parseo del mensaje recibido po
 
 <br />
 
+# Reentrega
+
+Para las correcciones de la entrega se solucionó una race condition presente en el servidor, y se dividió en dos la clase Socket, una en una clase aceptadora, y otra en una clase cliente, para que estuvieran bien divididas las responsabilidades y una no pudiera acceder a funciones que no le correspondían.
 
 
 

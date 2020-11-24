@@ -1,6 +1,7 @@
 #include "server.h"
 #include "Peer.h"
 #include "../common_src/Exception.h"
+#include "../common_src/SocketClient.h"
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -12,20 +13,19 @@
 Server::Server(char* port, char* root)
     : clients(),
       port(port),
-      root(root),
-      skt_listener(),
+      skt_listener(port),
       serv_online(true),
       monitor()
 
 {
-    skt_listener.bind(port);
     std::string cast = std::string(root);
     std::ifstream file(cast);
     if (file) {
         std::stringstream buffer;
         buffer << file.rdbuf();
         file.close();
-        monitor.insert("/", buffer.str());
+        std::string content = buffer.str();
+        monitor.insert("/", content);
     }
 }
 
@@ -35,26 +35,25 @@ void Server::operator()(){
 }
 
 void Server::run(){
-    Socket skt_peer;
     std::vector<Peer*> threads;
     clients = threads;
     while (serv_online){
         try {
-            skt_peer = std::move(skt_listener.acceptClient());
+            SocketClient skt_peer = std::move(skt_listener.acceptClient());
+            Peer* new_peer = new Peer(std::move(skt_peer), this->monitor);
+            clients.push_back(new_peer);
+            new_peer->start();
         }
         catch (Exception& e) {
-            return;
+            break;
         }
-        Peer* new_peer = new Peer(std::move(skt_peer), this->monitor);
-        clients.push_back(new_peer);
-        new_peer->start();
         destroyZombies(clients);
     }
+    endServer();
 }
 
 void Server::destroyZombies(std::vector<Peer*>& threads){
     std::vector<Peer*>::iterator it = threads.begin();
-
     while (it != threads.end()){
         if ((*it)->isDead()) {
             (*it)->join();
@@ -79,6 +78,5 @@ void Server::endServer(){
 
 void Server::shutDown(){
     serv_online = false;
-    skt_listener.forceShutDown();
-    endServer();
+    skt_listener.forceShutDown(); 
 }

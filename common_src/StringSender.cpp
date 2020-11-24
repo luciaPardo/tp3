@@ -2,19 +2,19 @@
 #include "StringSender.h"
 #include <sstream>
 #include <string>
-#include "Socket.h"
+#include "SocketClient.h"
 #include <iostream>
 #include <vector>
 #define MAX_BUFF 32
 
 
-void StringSender::sendMsg(Socket &socket, std::string &message) {
+void StringSender::sendMsg(SocketClient &socket, const std::string &message) {
     ssize_t msgsize = message.length();
     socket.send(const_cast<char*>(message.c_str()), msgsize);
 }
 
 
-std::string StringSender::recvMsg(Socket &socket) {
+std::string StringSender::recvMsg(SocketClient &socket) {
     char msg[MAX_BUFF] = {0};
     std::string mem("");
     while (true){

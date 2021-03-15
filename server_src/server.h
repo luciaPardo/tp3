@@ -5,14 +5,16 @@
 #include "Monitor.h"
 #include "thread.h"
 #include "ServerOutput.h"
+#include "../common_src/SocketAcceptor.h"
+#include "../common_src/SocketClient.h"
+
 class Server : public Thread {
 private:
     void endServer();
     void destroyZombies(std::vector<Peer*>& threads);
     std::vector<Peer*> clients;
     char* port;
-    char* root;
-    Socket skt_listener;
+    SocketAcceptor skt_listener;
 
 public:
     std::atomic<bool> serv_online;
